@@ -2,6 +2,14 @@
 
 This app uses [telegram-bot](https://github.com/telegram-bot-rb/telegram-bot) gem.
 
+Explore separate commits to check evolution of code.
+
+## Commands
+
+- `/start` - Greeting.
+- `/memo %text%` - Saves text to session.
+- `/remind_me` - Replies with text from session.
+
 ## Setup
 
 - Clone repo.
@@ -32,12 +40,6 @@ And deploy it in any way.
 ```
 bin/rspec
 ```
-
-## Commands
-
-- `/start` - Greeting.
-- `/memo %text%` - Saves text to session.
-- `/remind_me` - Replies with text from session.
 
 ## Contributing
 
