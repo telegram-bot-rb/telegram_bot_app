@@ -1,2 +1,8 @@
 en:
-  hello: "Hello world"
+  telegram_webhooks:
+    help:
+      content: |
+        Available cmds:
+        /start - Greeting.
+    start:
+      content: Hi there!
