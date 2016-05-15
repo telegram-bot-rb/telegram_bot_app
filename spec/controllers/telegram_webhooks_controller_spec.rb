@@ -16,4 +16,15 @@ RSpec.describe TelegramWebhooksController, type: :telegram_controller do
     subject { -> { dispatch_message "/start", message_options } }
     it { should_reply_with 'Hi there!' }
   end
+
+  describe '#message' do
+    subject { -> { dispatch_message text, message_options } }
+    let(:text ) { 'some plain text' }
+    it { should_reply_with  "You wrote: #{text}" }
+  end
+
+  describe 'for unsupported command' do
+    subject { -> { dispatch_message '/makeMeGreatBot', message_options } }
+    it { should_reply_with 'Can not perform makemegreatbot' }
+  end
 end
