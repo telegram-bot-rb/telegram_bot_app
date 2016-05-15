@@ -18,7 +18,8 @@ RSpec.describe TelegramWebhooksController, type: :telegram_controller do
   end
 
   describe '#memo' do
-    subject { -> { dispatch_message "/memo #{text}", message_options } }
+    subject { -> { dispatch_message msg, message_options } }
+    let(:msg) { "/memo #{text}" }
     let(:text) { 'asd qwe' }
     it { should change { session[:memo] }.from(nil).to(text) }
     it { should_reply_with 'Remembered!' }
@@ -26,7 +27,14 @@ RSpec.describe TelegramWebhooksController, type: :telegram_controller do
     context 'when no text given' do
       let(:text) {}
       it { should_not change { session[:memo] }.from(nil) }
-      it { should_reply_with 'Type what to remember right after command' }
+      it { should_reply_with 'What should I remember?' }
+    end
+
+    context 'when text is given in the second message' do
+      before { dispatch_message '/memo', message_options }
+      let(:msg) { text }
+      it { should change { session[:memo] }.from(nil).to(text) }
+      it { should_reply_with 'Remembered!' }
     end
   end
 

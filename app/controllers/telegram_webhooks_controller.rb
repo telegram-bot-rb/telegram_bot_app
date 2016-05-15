@@ -1,5 +1,6 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
-  use_session!
+  include Telegram::Bot::UpdatesController::MessageContext
+  context_to_action!
 
   def start(*)
     reply_with :message, text: 'Hi there!'
@@ -10,7 +11,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       session[:memo] = args.join(' ')
       reply_with :message, text: 'Remembered!'
     else
-      reply_with :message, text: 'Type what to remember right after command'
+      reply_with :message, text: 'What should I remember?'
+      save_context :memo
     end
   end
 
@@ -20,8 +22,14 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     reply_with :message, text: reply
   end
 
-  def message(message)
-    reply_with :message, text: "You wrote: #{message['text']}"
+  # v0.7
+  # def message(message)
+  #   reply_with :message, text: "You wrote: #{message['text']}"
+  # end
+
+  # v0.6
+  context_handler do
+    reply_with :message, text: "You wrote: #{payload['text']}"
   end
 
   def action_missing(action)
