@@ -30,4 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  telegram_webhooks:
+    help:
+      content: |
+        Available cmds:
+        /start - Greeting.
+    start:
+      content: Hi there!
