@@ -36,6 +36,8 @@ bin/rspec
 ## Commands
 
 - `/start` - Greeting.
+- `/memo %text%` - Saves text to session.
+- `/remind_me` - Replies with text from session.
 
 ## Contributing
 

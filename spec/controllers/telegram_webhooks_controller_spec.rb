@@ -17,10 +17,34 @@ RSpec.describe TelegramWebhooksController, type: :telegram_controller do
     it { should_reply_with 'Hi there!' }
   end
 
+  describe '#memo' do
+    subject { -> { dispatch_message "/memo #{text}", message_options } }
+    let(:text) { 'asd qwe' }
+    it { should change { session[:memo] }.from(nil).to(text) }
+    it { should_reply_with 'Remembered!' }
+
+    context 'when no text given' do
+      let(:text) {}
+      it { should_not change { session[:memo] }.from(nil) }
+      it { should_reply_with 'Type what to remember right after command' }
+    end
+  end
+
+  describe '#remind_me' do
+    subject { -> { dispatch_message '/remind_me', message_options } }
+    it { should_reply_with 'Nothing to remind' }
+
+    context 'when there is smth stored' do
+      let(:stored) { 'stored message' }
+      before { session[:memo] = stored }
+      it { should_reply_with stored }
+    end
+  end
+
   describe '#message' do
     subject { -> { dispatch_message text, message_options } }
     let(:text ) { 'some plain text' }
-    it { should_reply_with  "You wrote: #{text}" }
+    it { should_reply_with "You wrote: #{text}" }
   end
 
   describe 'for unsupported command' do
