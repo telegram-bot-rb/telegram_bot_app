@@ -7,6 +7,7 @@ Explore separate commits to check evolution of code.
 ## Commands
 
 - `/start` - Greeting.
+- '/help'
 - `/memo %text%` - Saves text to session.
 - `/remind_me` - Replies with text from session.
 - `/keyboard` - Simple keyboard.

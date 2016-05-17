@@ -6,6 +6,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     reply_with :message, text: 'Hi there!'
   end
 
+  def help(*)
+    reply_with :message, text: <<-TXT.strip_heredoc
+      Available cmds:
+      /memo %text% - Saves text to session.
+      /remind_me - Replies with text from session.
+      /keyboard - Simple keyboard.
+    TXT
+  end
+
   def memo(*args)
     if args.any?
       session[:memo] = args.join(' ')
