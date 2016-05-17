@@ -9,6 +9,7 @@ Explore separate commits to check evolution of code.
 - `/start` - Greeting.
 - `/memo %text%` - Saves text to session.
 - `/remind_me` - Replies with text from session.
+- `/keyboard` - Simple keyboard.
 
 ## Setup
 

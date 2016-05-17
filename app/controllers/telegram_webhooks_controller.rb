@@ -22,6 +22,20 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     reply_with :message, text: reply
   end
 
+  def keyboard(value = nil, *)
+    if value
+      reply_with :message, text: "You've selected: #{value}"
+    else
+      save_context :keyboard
+      reply_with :message, text: 'Select something with keyboard:', reply_markup: {
+        keyboard: [%w(Lorem Ipsum /cancel)],
+        resize_keyboard: true,
+        one_time_keyboard: true,
+        selective: true,
+      }
+    end
+  end
+
   # v0.7
   # def message(message)
   #   reply_with :message, text: "You wrote: #{message['text']}"
