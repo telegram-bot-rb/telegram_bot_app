@@ -7,11 +7,12 @@ Explore separate commits to check evolution of code.
 ## Commands
 
 - `/start` - Greeting.
-- '/help'
+- `/help`
 - `/memo %text%` - Saves text to session.
 - `/remind_me` - Replies with text from session.
 - `/keyboard` - Simple keyboard.
 - `/inline_keyboard` - Inline keyboard example.
+- Inline queries. Enable it in BotFather, and your're ready to try 'em.
 
 ## Setup
 

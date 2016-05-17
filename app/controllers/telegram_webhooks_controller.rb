@@ -13,6 +13,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       /remind_me - Replies with text from session.
       /keyboard - Simple keyboard.
       /inline_keyboard - Inline keyboard example.
+      Bot supports inline queries. Enable it in @BotFather.
     TXT
   end
 
@@ -68,6 +69,28 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
   def message(message)
     reply_with :message, text: "You wrote: #{message['text']}"
+  end
+
+  def inline_query(query, offset)
+    query = query.first(10) # it's just an example, don't use large queries.
+    results = 5.times.map do |i|
+      {
+        type: :article,
+        title: "#{query}-#{i}",
+        id: "#{query}-#{i}",
+        description: "description #{i}",
+        input_message_content: {
+          message_text: "content #{i}",
+        },
+      }
+    end
+    answer_inline_query results
+  end
+
+  # There are no such requests from telegram :(
+  # If you know, how can this be performed, open an issue pls.
+  def chosen_inline_result(result_id, query)
+    reply_with :message, "Query: #{query}\nYou've chosen: #{result_id}"
   end
 
   def action_missing(action, *_args)
