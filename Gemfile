@@ -23,7 +23,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'telegram-bot', '~> 0.6.0'
+gem 'telegram-bot', github: 'telegram-bot-rb/telegram-bot', ref: 'a52e7ff'
+# gem 'telegram-bot', path: '../telegram-bot'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

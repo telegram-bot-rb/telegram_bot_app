@@ -11,6 +11,7 @@ Explore separate commits to check evolution of code.
 - `/memo %text%` - Saves text to session.
 - `/remind_me` - Replies with text from session.
 - `/keyboard` - Simple keyboard.
+- `/inline_keyboard` - Inline keyboard example.
 
 ## Setup
 

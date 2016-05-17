@@ -12,6 +12,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       /memo %text% - Saves text to session.
       /remind_me - Replies with text from session.
       /keyboard - Simple keyboard.
+      /inline_keyboard - Inline keyboard example.
     TXT
   end
 
@@ -45,17 +46,31 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
   end
 
-  # v0.7
-  # def message(message)
-  #   reply_with :message, text: "You wrote: #{message['text']}"
-  # end
-
-  # v0.6
-  context_handler do
-    reply_with :message, text: "You wrote: #{payload['text']}"
+  def inline_keyboard
+    reply_with :message, text: 'Check my inline keyboard:', reply_markup: {
+      inline_keyboard: [
+        [
+          {text: 'Answer with alert', callback_data: 'alert'},
+          {text: 'Without alert', callback_data: 'no_alert'},
+        ],
+        [{text: 'Open gem repo', url: 'https://github.com/telegram-bot-rb/telegram-bot'}],
+      ],
+    }
   end
 
-  def action_missing(action)
+  def callback_query(data)
+    if data == 'alert'
+      answer_callback_query 'This is ALERT-T-T!!!', show_alert: true
+    else
+      answer_callback_query 'Simple answer'
+    end
+  end
+
+  def message(message)
+    reply_with :message, text: "You wrote: #{message['text']}"
+  end
+
+  def action_missing(action, *_args)
     reply_with :message, text: "Can not perform #{action}" if command?
   end
 end
