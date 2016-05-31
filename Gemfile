@@ -35,8 +35,7 @@ gem 'telegram-bot', github: 'telegram-bot-rb/telegram-bot', ref: 'a52e7ff'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'jazz_hands', github: 'dhanushram/jazz_hands', ref: '9bcd0a5d', platforms: [:ruby]
-gem 'pry', '~> 0.10.3'
+gem 'debbie', '~> 1.0.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
