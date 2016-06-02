@@ -3,11 +3,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   context_to_action!
 
   def start(*)
-    reply_with :message, text: 'Hi there!'
+    respond_with :message, text: 'Hi there!'
   end
 
   def help(*)
-    reply_with :message, text: <<-TXT.strip_heredoc
+    respond_with :message, text: <<-TXT.strip_heredoc
       Available cmds:
       /memo %text% - Saves text to session.
       /remind_me - Replies with text from session.
@@ -20,9 +20,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def memo(*args)
     if args.any?
       session[:memo] = args.join(' ')
-      reply_with :message, text: 'Remembered!'
+      respond_with :message, text: 'Remembered!'
     else
-      reply_with :message, text: 'What should I remember?'
+      respond_with :message, text: 'What should I remember?'
       save_context :memo
     end
   end
@@ -30,15 +30,15 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def remind_me
     to_remind = session.delete(:memo)
     reply = to_remind || 'Nothing to remind'
-    reply_with :message, text: reply
+    respond_with :message, text: reply
   end
 
   def keyboard(value = nil, *)
     if value
-      reply_with :message, text: "You've selected: #{value}"
+      respond_with :message, text: "You've selected: #{value}"
     else
       save_context :keyboard
-      reply_with :message, text: 'Select something with keyboard:', reply_markup: {
+      respond_with :message, text: 'Select something with keyboard:', reply_markup: {
         keyboard: [%w(Lorem Ipsum /cancel)],
         resize_keyboard: true,
         one_time_keyboard: true,
@@ -48,7 +48,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def inline_keyboard
-    reply_with :message, text: 'Check my inline keyboard:', reply_markup: {
+    respond_with :message, text: 'Check my inline keyboard:', reply_markup: {
       inline_keyboard: [
         [
           {text: 'Answer with alert', callback_data: 'alert'},
@@ -68,7 +68,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def message(message)
-    reply_with :message, text: "You wrote: #{message['text']}"
+    respond_with :message, text: "You wrote: #{message['text']}"
   end
 
   def inline_query(query, offset)
@@ -90,10 +90,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   # There are no such requests from telegram :(
   # If you know, how can this be performed, open an issue pls.
   def chosen_inline_result(result_id, query)
-    reply_with :message, "Query: #{query}\nYou've chosen: #{result_id}"
+    respond_with :message, "Query: #{query}\nYou've chosen: #{result_id}"
   end
 
   def action_missing(action, *_args)
-    reply_with :message, text: "Can not perform #{action}" if command?
+    respond_with :message, text: "Can not perform #{action}" if command?
   end
 end
