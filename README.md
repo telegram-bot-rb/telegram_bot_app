@@ -1,6 +1,8 @@
 # Example telegram bot app
 
 This app uses [telegram-bot](https://github.com/telegram-bot-rb/telegram-bot) gem.
+Want to see the [bot code](https://github.com/telegram-bot-rb/telegram_bot_app/blob/master/app/controllers/telegram_webhooks_controller.rb)
+first?
 
 Explore separate commits to check evolution of code.
 
@@ -20,6 +22,7 @@ Explore separate commits to check evolution of code.
 
 ## Setup
 
+- Create bot with [@BotFather](https://telegram.me/BotFather) `unless has_test_bot?`
 - Clone repo.
 - run `./bin/setup`.
 - Update `config/secrets.yml` with your bot's token.
