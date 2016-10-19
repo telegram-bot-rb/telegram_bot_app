@@ -14,6 +14,9 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Set application domain, to be able to run `rake telegram:bot:set_webhook`
+  # config.routes.default_url_options = {host: 'yourdomain.com', protocol: 'https'}
+
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?

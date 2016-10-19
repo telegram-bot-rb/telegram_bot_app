@@ -30,14 +30,25 @@ bin/rake telegram:bot:poller
 
 ### Production
 
-You may want to use different token, because after you setup webhook
-you'll need to unset it to run development poller again.
+One way is just to run poller. You don't need anything else, just check
+your production secrets & configs. But there is better way: use webhooks.
+
+__You may want to use different token: after you setup the webhook,
+you need to unset it to run development poller again.__
+
+First you need to setup the webhook. There is rake task for it,
+but you're free to set it manually with API call.
+To use rake task you need to set host in `config.routes.default_url_options`
+for production environment. There is already such line in the repo in `production.rb`.
+Uncomment it, change the values, and you're ready for:
 
 ```
 bin/rake telegram:bot:set_webhook RAILS_ENV=production
 ```
 
-And deploy it in any way.
+Now deploy your app in any way you like. You don't need run anything special for bot,
+but `rails server` as usual. Your rails app will receive webhooks and bypass them
+to bot's controller.
 
 ### Testing
 
