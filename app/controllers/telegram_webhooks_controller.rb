@@ -14,6 +14,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       /keyboard - Simple keyboard.
       /inline_keyboard - Inline keyboard example.
       Bot supports inline queries. Enable it in @BotFather.
+      /last_chosen_inline_result - Your last chosen inline result \
+      (Enable feedback with /setinlinefeedback).
     TXT
   end
 
@@ -87,13 +89,26 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     answer_inline_query results
   end
 
-  # There are no such requests from telegram :(
-  # If you know, how can this be performed, open an issue pls.
+  # As there is no chat id in such requests, we can not respond instantly.
+  # So we just save the result_id, and it's available then with `/last_chosen_inline_result`.
   def chosen_inline_result(result_id, query)
-    respond_with :message, "Query: #{query}\nYou've chosen: #{result_id}"
+    session[:last_chosen_inline_result] = result_id
+  end
+
+  def last_chosen_inline_result
+    result_id = session[:last_chosen_inline_result]
+    if result_id
+      respond_with :message, text: "You've chosen result ##{result_id}"
+    else
+      respond_with :message, text: 'Mention me to initiate inline query'
+    end
   end
 
   def action_missing(action, *_args)
-    respond_with :message, text: "Can not perform #{action}" if command?
+    if command?
+      respond_with :message, text: "Can not perform #{action}"
+    else
+      respond_with :message, text: "#{action} feature is not implemented yet"
+    end
   end
 end

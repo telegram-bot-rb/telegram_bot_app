@@ -12,7 +12,11 @@ Explore separate commits to check evolution of code.
 - `/remind_me` - Replies with text from session.
 - `/keyboard` - Simple keyboard.
 - `/inline_keyboard` - Inline keyboard example.
-- Inline queries. Enable it in BotFather, and your're ready to try 'em.
+- Inline queries. Enable it in [@BotFather](https://telegram.me/BotFather),
+  and your're ready to try 'em.
+- `/last_chosen_inline_result` - Your last chosen inline result
+  (Enable feedback with sending `/setinlinefeedback`
+  to [@BotFather](https://telegram.me/BotFather)).
 
 ## Setup
 

@@ -78,6 +78,24 @@ RSpec.describe TelegramWebhooksController, type: :telegram_controller do
     it { should_respond_with "You wrote: #{text}" }
   end
 
+  describe '#chosen_inline_result' do
+    subject { -> { dispatch } }
+    let(:payload_type) { :chosen_inline_result }
+    let(:payload) { {from: {id: 123}, result_id: 456} }
+    it { should change { session[:last_chosen_inline_result] }.to payload[:result_id] }
+  end
+
+  describe '#last_chosen_inline_result' do
+    subject { -> { dispatch_message '/last_chosen_inline_result' } }
+    it { should_respond_with 'Mention me to initiate inline query' }
+
+    context 'when user have already chosen smth' do
+      let(:result_id) { 'result-123' }
+      before { session[:last_chosen_inline_result] = result_id }
+      it { should_respond_with "You've chosen result ##{result_id}" }
+    end
+  end
+
   describe 'for unsupported command' do
     subject { -> { dispatch_message '/makeMeGreatBot' } }
     it { should_respond_with 'Can not perform makemegreatbot' }
