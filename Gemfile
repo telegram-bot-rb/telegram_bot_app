@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-
+# Use https for github:
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.0.0.1'
@@ -23,7 +24,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'telegram-bot', github: 'telegram-bot-rb/telegram-bot', ref: '9e67122'
+gem 'telegram-bot', github: 'telegram-bot-rb/telegram-bot', ref: '194fc78'
 # gem 'telegram-bot', path: '../telegram-bot'
 
 # Use ActiveModel has_secure_password
