@@ -6,6 +6,9 @@ first?
 
 Explore separate commits to check evolution of code.
 
+Want a clean setup instead?
+Here is [app teamplate](https://github.com/telegram-bot-rb/rails_template) to help you.
+
 ## Commands
 
 - `/start` - Greeting.
