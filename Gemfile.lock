@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/telegram-bot-rb/telegram-bot.git
-  revision: 194fc7820290f55fc095623176ff42675c77533d
-  ref: 194fc78
+  revision: 109811882665904f2080a086aca9fa163feec95a
+  ref: 1098118
   specs:
-    telegram-bot (0.9.0.alpha2)
+    telegram-bot (0.9.0)
       actionpack (>= 4.0, < 5.1)
       activesupport (>= 4.0, < 5.1)
       httpclient (~> 2.7)
