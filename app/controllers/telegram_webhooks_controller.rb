@@ -3,45 +3,36 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   context_to_action!
 
   def start(*)
-    respond_with :message, text: 'Hi there!'
+    respond_with :message, text: t('.content')
   end
 
   def help(*)
-    respond_with :message, text: <<-TXT.strip_heredoc
-      Available cmds:
-      /memo %text% - Saves text to session.
-      /remind_me - Replies with text from session.
-      /keyboard - Simple keyboard.
-      /inline_keyboard - Inline keyboard example.
-      Bot supports inline queries. Enable it in @BotFather.
-      /last_chosen_inline_result - Your last chosen inline result \
-      (Enable feedback with /setinlinefeedback).
-    TXT
+    respond_with :message, text: t('.content')
   end
 
   def memo(*args)
     if args.any?
       session[:memo] = args.join(' ')
-      respond_with :message, text: 'Remembered!'
+      respond_with :message, text: t('.notice')
     else
-      respond_with :message, text: 'What should I remember?'
+      respond_with :message, text: t('.prompt')
       save_context :memo
     end
   end
 
   def remind_me
     to_remind = session.delete(:memo)
-    reply = to_remind || 'Nothing to remind'
+    reply = to_remind || t('.nothing')
     respond_with :message, text: reply
   end
 
   def keyboard(value = nil, *)
     if value
-      respond_with :message, text: "You've selected: #{value}"
+      respond_with :message, text: t('.selected', value: value)
     else
       save_context :keyboard
-      respond_with :message, text: 'Select something with keyboard:', reply_markup: {
-        keyboard: [%w(Lorem Ipsum /cancel)],
+      respond_with :message, text: t('.prompt'), reply_markup: {
+        keyboard: [t('.buttons')],
         resize_keyboard: true,
         one_time_keyboard: true,
         selective: true,
@@ -50,39 +41,41 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def inline_keyboard
-    respond_with :message, text: 'Check my inline keyboard:', reply_markup: {
+    respond_with :message, text: t('.prompt'), reply_markup: {
       inline_keyboard: [
         [
-          {text: 'Answer with alert', callback_data: 'alert'},
-          {text: 'Without alert', callback_data: 'no_alert'},
+          {text: t('.alert'), callback_data: 'alert'},
+          {text: t('.no_alert'), callback_data: 'no_alert'},
         ],
-        [{text: 'Open gem repo', url: 'https://github.com/telegram-bot-rb/telegram-bot'}],
+        [{text: t('.repo'), url: 'https://github.com/telegram-bot-rb/telegram-bot'}],
       ],
     }
   end
 
   def callback_query(data)
     if data == 'alert'
-      answer_callback_query 'This is ALERT-T-T!!!', show_alert: true
+      answer_callback_query t('.alert'), show_alert: true
     else
-      answer_callback_query 'Simple answer'
+      answer_callback_query t('.no_alert')
     end
   end
 
   def message(message)
-    respond_with :message, text: "You wrote: #{message['text']}"
+    respond_with :message, text: t('.content', text: message['text'])
   end
 
   def inline_query(query, offset)
     query = query.first(10) # it's just an example, don't use large queries.
+    t_description = t('.description')
+    t_content = t('.content')
     results = 5.times.map do |i|
       {
         type: :article,
         title: "#{query}-#{i}",
         id: "#{query}-#{i}",
-        description: "description #{i}",
+        description: "#{t_description} #{i}",
         input_message_content: {
-          message_text: "content #{i}",
+          message_text: "#{t_content} #{i}",
         },
       }
     end
@@ -98,17 +91,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def last_chosen_inline_result
     result_id = session[:last_chosen_inline_result]
     if result_id
-      respond_with :message, text: "You've chosen result ##{result_id}"
+      respond_with :message, text: t('.selected', result_id: result_id)
     else
-      respond_with :message, text: 'Mention me to initiate inline query'
+      respond_with :message, text: t('.prompt')
     end
   end
 
   def action_missing(action, *_args)
     if command?
-      respond_with :message, text: "Can not perform #{action}"
+      respond_with :message, text: t('telegram_webhooks.action_missing.command', command: action)
     else
-      respond_with :message, text: "#{action} feature is not implemented yet"
+      respond_with :message, text: t('telegram_webhooks.action_missing.feature', action: action)
     end
   end
 end

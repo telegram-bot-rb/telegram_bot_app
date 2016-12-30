@@ -1,23 +1,45 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  telegram_webhooks:
+    action_missing:
+      command: Can not perform %{command}
+      feature: '%{action} feature is not implemented yet'
+    callback_query:
+      alert: This is ALERT-T-T!!!
+      no_alert: Simple answer
+    help:
+      content: |
+        Available cmds:
+        /memo %text% - Saves text to session.
+        /remind_me - Replies with text from session.
+        /keyboard - Simple keyboard.
+        /inline_keyboard - Inline keyboard example.
+        Bot supports inline queries. Enable it in @BotFather.
+        /last_chosen_inline_result - Your last chosen inline result \
+        (Enable feedback with /setinlinefeedback).
+    inline_keyboard:
+      alert: Answer with alert
+      no_alert: Without alert
+      prompt: 'Check my inline keyboard:'
+      repo: Open gem repo
+    inline_query:
+      content: Content
+      description: Description
+    keyboard:
+      buttons:
+        - Lorem
+        - Ipsum
+        - /cancel
+      prompt: 'Select something with keyboard:'
+      selected: "You've selected: %{value}"
+    last_chosen_inline_result:
+      prompt: Mention me to initiate inline query
+      selected: "You've chosen result #%{result_id}"
+    memo:
+      notice: Remembered!
+      prompt: What should I remember?
+    message:
+      content: 'You wrote: %{text}'
+    remind_me:
+      nothing: Nothing to remind
+    start:
+      content: Hi there!
