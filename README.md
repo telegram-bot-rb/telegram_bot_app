@@ -48,8 +48,9 @@ you need to unset it to run development poller again.__
 
 First you need to setup the webhook. There is rake task for it,
 but you're free to set it manually with API call.
-To use rake task you need to set host in `config.routes.default_url_options`
-for production environment. There is already such line in the repo in `production.rb`.
+To use rake task you need to set host in `routes.default_url_options`
+for production environment (`config.routes` for Rails < 5).
+There is already such line in the repo in `production.rb`.
 Uncomment it, change the values, and you're ready for:
 
 ```
