@@ -63,4 +63,14 @@ RSpec.describe TelegramWebhooksController, :telegram_bot do
     subject { -> { dispatch_command :makeMeGreatBot } }
     it { should respond_with_message 'Can not perform makemegreatbot' }
   end
+
+  describe '#callback_query', :callback_query do
+    let(:data) { 'no_alert' }
+    it { should answer_callback_query('Simple answer') }
+
+    context 'with alert' do
+      let(:data) { 'alert' }
+      it { should answer_callback_query(/ALERT/) }
+    end
+  end
 end

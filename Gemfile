@@ -26,7 +26,7 @@ gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 
-gem 'telegram-bot', github: 'telegram-bot-rb/telegram-bot', ref: '1098118'
+gem 'telegram-bot', github: 'telegram-bot-rb/telegram-bot', ref: '384d203'
 # gem 'telegram-bot', path: '../telegram-bot'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
