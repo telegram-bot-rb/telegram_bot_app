@@ -61,6 +61,12 @@ Now deploy your app in any way you like. You don't need run anything special for
 but `rails server` as usual. Your rails app will receive webhooks and bypass them
 to bot's controller.
 
+By default session is configured to use FileStore at `Rails.root.join('tmp', 'session_store')`.
+To use it in production make sure to share this folder between releases
+(ex., add to list shared of shared folders in capistrano).
+Read more about different session stores in
+[original readme](https://github.com/telegram-bot-rb/telegram-bot#session).
+
 ### Testing
 
 ```
