@@ -43,7 +43,7 @@ RSpec.describe TelegramWebhooksController, :telegram_bot do
 
   describe '#message' do
     subject { -> { dispatch_message text } }
-    let(:text ) { 'some plain text' }
+    let(:text) { 'some plain text' }
     it { should respond_with_message "You wrote: #{text}" }
   end
 
