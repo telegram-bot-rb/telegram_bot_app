@@ -20,7 +20,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
   end
 
-  def remind_me
+  def remind_me(*)
     to_remind = session.delete(:memo)
     reply = to_remind || t('.nothing')
     respond_with :message, text: reply
@@ -40,7 +40,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
   end
 
-  def inline_keyboard
+  def inline_keyboard(*)
     respond_with :message, text: t('.prompt'), reply_markup: {
       inline_keyboard: [
         [
@@ -88,7 +88,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:last_chosen_inline_result] = result_id
   end
 
-  def last_chosen_inline_result
+  def last_chosen_inline_result(*)
     result_id = session[:last_chosen_inline_result]
     if result_id
       respond_with :message, text: t('.selected', result_id: result_id)
