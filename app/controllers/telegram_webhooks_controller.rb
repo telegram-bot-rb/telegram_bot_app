@@ -1,36 +1,35 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
-  context_to_action!
 
-  def start(*)
+  def start!(*)
     respond_with :message, text: t('.content')
   end
 
-  def help(*)
+  def help!(*)
     respond_with :message, text: t('.content')
   end
 
-  def memo(*args)
+  def memo!(*args)
     if args.any?
       session[:memo] = args.join(' ')
       respond_with :message, text: t('.notice')
     else
       respond_with :message, text: t('.prompt')
-      save_context :memo
+      save_context :memo!
     end
   end
 
-  def remind_me(*)
+  def remind_me!(*)
     to_remind = session.delete(:memo)
     reply = to_remind || t('.nothing')
     respond_with :message, text: reply
   end
 
-  def keyboard(value = nil, *)
+  def keyboard!(value = nil, *)
     if value
       respond_with :message, text: t('.selected', value: value)
     else
-      save_context :keyboard
+      save_context :keyboard!
       respond_with :message, text: t('.prompt'), reply_markup: {
         keyboard: [t('.buttons')],
         resize_keyboard: true,
@@ -40,7 +39,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
   end
 
-  def inline_keyboard(*)
+  def inline_keyboard!(*)
     respond_with :message, text: t('.prompt'), reply_markup: {
       inline_keyboard: [
         [
@@ -88,7 +87,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     session[:last_chosen_inline_result] = result_id
   end
 
-  def last_chosen_inline_result(*)
+  def last_chosen_inline_result!(*)
     result_id = session[:last_chosen_inline_result]
     if result_id
       respond_with :message, text: t('.selected', result_id: result_id)
@@ -98,8 +97,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def action_missing(action, *_args)
-    if command?
-      respond_with :message, text: t('telegram_webhooks.action_missing.command', command: action)
+    if action_type == :command
+      respond_with :message,
+        text: t('telegram_webhooks.action_missing.command', command: action_options[:command])
     else
       respond_with :message, text: t('telegram_webhooks.action_missing.feature', action: action)
     end

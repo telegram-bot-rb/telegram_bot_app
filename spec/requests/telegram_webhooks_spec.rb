@@ -3,7 +3,7 @@ RSpec.describe TelegramWebhooksController, :telegram_bot do
     bot.requests[:sendMessage].last
   end
 
-  describe '#start' do
+  describe '#start!' do
     subject { -> { dispatch_command :start } }
     it { should respond_with_message 'Hi there!' }
   end
@@ -27,7 +27,7 @@ RSpec.describe TelegramWebhooksController, :telegram_bot do
     end
   end
 
-  describe '#keyboard' do
+  describe '#keyboard!' do
     subject { -> { dispatch_command :keyboard } }
     it 'shows keyboard' do
       should respond_with_message 'Select something with keyboard:'
@@ -61,7 +61,7 @@ RSpec.describe TelegramWebhooksController, :telegram_bot do
 
   describe 'for unsupported command' do
     subject { -> { dispatch_command :makeMeGreatBot } }
-    it { should respond_with_message 'Can not perform makemegreatbot' }
+    it { should respond_with_message 'Can not perform makeMeGreatBot' }
   end
 
   describe '#callback_query', :callback_query do
