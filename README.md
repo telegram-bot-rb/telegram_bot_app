@@ -81,12 +81,6 @@ bin/rspec
 - Run and check the logs out.
 - More info about [async mode](https://github.com/telegram-bot-rb/telegram-bot#async-mode).
 
-### Botan
-
-- Get token at [botan.io](http://botan.io/).
-- Uncomment `botan` section in `secrets.yml` and update token.
-- Run.
-
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/telegram-bot-rb/telegram_bot_app.
