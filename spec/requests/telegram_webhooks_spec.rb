@@ -9,6 +9,25 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
     it { should respond_with_message(/Available cmds/) }
   end
 
+  describe 'memoizing with /memo' do
+    let(:memo) { ->(text) { dispatch_command :memo, text } }
+    let(:remind_me) { -> { dispatch_command :remind_me } }
+    let(:text) { 'asd qwe' }
+
+    it 'memoizes from the single message' do
+      expect(&remind_me).to respond_with_message 'Nothing to remind'
+      expect { memo[text] }.to respond_with_message 'Remembered!'
+      expect(&remind_me).to respond_with_message text
+      expect(&remind_me).to respond_with_message 'Nothing to remind'
+    end
+
+    it 'memoizes text from subsequest message' do
+      expect { memo[''] }.to respond_with_message 'What should I remember?'
+      expect { dispatch_message text }.to respond_with_message 'Remembered!'
+      expect(&remind_me).to respond_with_message text
+    end
+  end
+
   describe '#message' do
     subject { -> { dispatch_message text } }
     let(:text) { 'some plain text' }
