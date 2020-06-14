@@ -39,7 +39,13 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'debbie', '~> 2.0.0'
+group :pry do
+  gem 'awesome_print', '~> 1.8.0'
+  gem 'pry', '~> 0.12.2'
+  gem 'pry-byebug', '~> 3.6.0'
+  gem 'pry-doc', '~> 1.1.0'
+  gem 'pry-rails', '~> 0.3.9'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
