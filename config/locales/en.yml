@@ -44,11 +44,17 @@ en:
         /remind_me - Replies with text from session.
         /keyboard - Simple keyboard.
         /inline_keyboard - Inline keyboard example.
+        Bot supports inline queries. Enable it in @BotFather.
+        /last_chosen_inline_result - Your last chosen inline result \
+        (Enable feedback with /setinlinefeedback).
     inline_keyboard:
       alert: Answer with alert
       no_alert: Without alert
       prompt: 'Check my inline keyboard:'
       repo: Open gem repo
+    inline_query:
+      content: Content
+      description: Description
     keyboard:
       buttons:
         - Lorem
@@ -56,6 +62,9 @@ en:
         - /cancel
       prompt: 'Select something with keyboard:'
       selected: "You've selected: %{value}"
+    last_chosen_inline_result:
+      prompt: Mention me to initiate inline query
+      selected: "You've chosen result #%{result_id}"
     memo:
       notice: Remembered!
       prompt: What should I remember?

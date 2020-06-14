@@ -61,6 +61,18 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
+  describe '#chosen_inline_result' do
+    subject { -> { dispatch(chosen_inline_result: payload) } }
+    let(:fetch) { -> { dispatch_command :last_chosen_inline_result } }
+    let(:payload) { {from: {id: 123}, result_id: 456} }
+
+    it 'memoizes chosen_inline_result' do
+      expect(&fetch).to respond_with_message 'Mention me to initiate inline query'
+      subject.call
+      expect(&fetch).to respond_with_message "You've chosen result ##{payload[:result_id]}"
+    end
+  end
+
   describe '#message' do
     subject { -> { dispatch_message text } }
     let(:text) { 'some plain text' }

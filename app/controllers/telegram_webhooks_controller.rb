@@ -59,6 +59,39 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
   end
 
+  def inline_query(query, _offset)
+    query = query.first(10) # it's just an example, don't use large queries.
+    t_description = t('.description')
+    t_content = t('.content')
+    results = Array.new(5) do |i|
+      {
+        type: :article,
+        title: "#{query}-#{i}",
+        id: "#{query}-#{i}",
+        description: "#{t_description} #{i}",
+        input_message_content: {
+          message_text: "#{t_content} #{i}",
+        },
+      }
+    end
+    answer_inline_query results
+  end
+
+  # As there is no chat id in such requests, we can not respond instantly.
+  # So we just save the result_id, and it's available then with `/last_chosen_inline_result`.
+  def chosen_inline_result(result_id, _query)
+    session[:last_chosen_inline_result] = result_id
+  end
+
+  def last_chosen_inline_result!(*)
+    result_id = session[:last_chosen_inline_result]
+    if result_id
+      respond_with :message, text: t('.selected', result_id: result_id)
+    else
+      respond_with :message, text: t('.prompt')
+    end
+  end
+
   def message(message)
     respond_with :message, text: t('.content', text: message['text'])
   end
