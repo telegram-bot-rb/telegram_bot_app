@@ -33,6 +33,9 @@ en:
   telegram_webhooks:
     action_missing:
       command: Can not perform %{command}
+    callback_query:
+      alert: This is ALERT-T-T!!!
+      no_alert: Simple answer
     help:
       content: |
         Available cmds:
@@ -40,6 +43,12 @@ en:
         /memo %text% - Saves text to session.
         /remind_me - Replies with text from session.
         /keyboard - Simple keyboard.
+        /inline_keyboard - Inline keyboard example.
+    inline_keyboard:
+      alert: Answer with alert
+      no_alert: Without alert
+      prompt: 'Check my inline keyboard:'
+      repo: Open gem repo
     keyboard:
       buttons:
         - Lorem

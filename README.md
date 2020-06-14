@@ -16,6 +16,7 @@ Here is [app teamplate](https://github.com/telegram-bot-rb/rails_template) to he
 - `/memo %text%` - Saves text to session.
 - `/remind_me` - Replies with text from session.
 - `/keyboard` - Simple keyboard.
+- `/inline_keyboard` - Inline keyboard example.
 
 ## Setup
 

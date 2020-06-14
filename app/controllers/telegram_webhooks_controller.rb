@@ -39,6 +39,26 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
   end
 
+  def inline_keyboard!(*)
+    respond_with :message, text: t('.prompt'), reply_markup: {
+      inline_keyboard: [
+        [
+          {text: t('.alert'), callback_data: 'alert'},
+          {text: t('.no_alert'), callback_data: 'no_alert'},
+        ],
+        [{text: t('.repo'), url: 'https://github.com/telegram-bot-rb/telegram-bot'}],
+      ],
+    }
+  end
+
+  def callback_query(data)
+    if data == 'alert'
+      answer_callback_query t('.alert'), show_alert: true
+    else
+      answer_callback_query t('.no_alert')
+    end
+  end
+
   def message(message)
     respond_with :message, text: t('.content', text: message['text'])
   end

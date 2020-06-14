@@ -42,6 +42,25 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
+  describe '#inline_keyboard!' do
+    subject { -> { dispatch_command :inline_keyboard } }
+
+    it 'shows inline keyboard' do
+      should respond_with_message 'Check my inline keyboard:'
+      expect(bot.requests[:sendMessage].last.dig(:reply_markup, :inline_keyboard)).to be_present
+    end
+  end
+
+  describe '#callback_query', :callback_query do
+    let(:data) { 'no_alert' }
+    it { should answer_callback_query('Simple answer') }
+
+    context 'with alert' do
+      let(:data) { 'alert' }
+      it { should answer_callback_query(/ALERT/) }
+    end
+  end
+
   describe '#message' do
     subject { -> { dispatch_message text } }
     let(:text) { 'some plain text' }
