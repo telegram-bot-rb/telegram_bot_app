@@ -28,6 +28,20 @@ RSpec.describe TelegramWebhooksController, telegram_bot: :rails do
     end
   end
 
+  describe '#keyboard!' do
+    subject { -> { dispatch_command :keyboard } }
+    it 'shows keyboard' do
+      should respond_with_message 'Select something with keyboard:'
+      expect(bot.requests[:sendMessage].last[:reply_markup]).to be_present
+    end
+
+    context 'when keyboard button selected' do
+      subject { -> { dispatch_message 'Smth' } }
+      before { dispatch_command :keyboard }
+      it { should respond_with_message "You've selected: Smth" }
+    end
+  end
+
   describe '#message' do
     subject { -> { dispatch_message text } }
     let(:text) { 'some plain text' }

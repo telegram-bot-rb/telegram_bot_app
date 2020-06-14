@@ -39,6 +39,14 @@ en:
         /start - Greeting.
         /memo %text% - Saves text to session.
         /remind_me - Replies with text from session.
+        /keyboard - Simple keyboard.
+    keyboard:
+      buttons:
+        - Lorem
+        - Ipsum
+        - /cancel
+      prompt: 'Select something with keyboard:'
+      selected: "You've selected: %{value}"
     memo:
       notice: Remembered!
       prompt: What should I remember?
