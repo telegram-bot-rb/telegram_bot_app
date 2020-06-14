@@ -31,9 +31,13 @@
 
 en:
   telegram_webhooks:
+    action_missing:
+      command: Can not perform %{command}
     help:
       content: |
         Available cmds:
         /start - Greeting.
+    message:
+      content: 'You wrote: %{text}'
     start:
       content: Hi there!
