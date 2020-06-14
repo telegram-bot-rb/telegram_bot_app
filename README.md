@@ -13,6 +13,8 @@ Here is [app teamplate](https://github.com/telegram-bot-rb/rails_template) to he
 
 - `/start` - Greeting.
 - `/help`
+- `/memo %text%` - Saves text to session.
+- `/remind_me` - Replies with text from session.
 
 ## Setup
 

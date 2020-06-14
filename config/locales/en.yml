@@ -37,7 +37,14 @@ en:
       content: |
         Available cmds:
         /start - Greeting.
+        /memo %text% - Saves text to session.
+        /remind_me - Replies with text from session.
+    memo:
+      notice: Remembered!
+      prompt: What should I remember?
     message:
       content: 'You wrote: %{text}'
+    remind_me:
+      nothing: Nothing to remind
     start:
       content: Hi there!
