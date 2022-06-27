@@ -1,4 +1,4 @@
-# Alieases for debugger.
+# Aliases for debugger.
 if defined?(PryByebug) || defined?(PryDebugger)
   Pry.commands.alias_command 'c', 'continue'
   Pry.commands.alias_command 's', 'step'
