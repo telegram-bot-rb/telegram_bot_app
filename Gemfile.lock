@@ -113,7 +113,7 @@ GEM
       digest
       net-protocol
       timeout
-    nio4r (2.5.8)
+    nio4r (2.5.9)
     nokogiri (1.13.6-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.6-x86_64-linux)
@@ -129,7 +129,7 @@ GEM
       yard (~> 0.9.11)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    puma (5.6.4)
+    puma (5.6.7)
       nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3.1)
